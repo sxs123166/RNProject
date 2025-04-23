@@ -91,3 +91,40 @@ setCountObject({...countObject, num: countObject.num+1});
 const newCountArray = [...newCountArray]
 newCountArray[0]++;
 setCountArray(newCountArray)
+
+
+// 本地图片
+// 方案一：正确
+const dianxinIcon = require('./dianxin.jpg')
+<Image source={dianxinIcon}/>
+
+// 网络图片（Network Images）指的是使用 http/https 网络请求加载远程图片的方式。
+// 在使用网络图片时，我建议你将宽高属性作为一个必填项来处理。
+// 为什么呢？和前面介绍的静态图片资源不同的是，网络图片下载下来之前，React Native 是没法知道图片的宽高的，所以它只能用默认的 0 作为宽高。这个时候，如果你没有填写宽高属性，初始化默认宽高是 0，网络图片就展示不了。
+// 建议
+<Image source={{uri: 'https://reactjs.org/logo-og.png'}}
+       style={{width: 400, height: 400}} />
+// 图片预加载接口
+Image.prefetch(url);
+
+
+// 也就是说，函数 Image.prefetch 接收一个参数 url，也就是图片的远程地址，函数调用后，React Native 会帮你在后台进行下载和缓存图片。这样，你下拉加载的图片时，网络图片是从本地缓存中加载的，就感受不到网络加载的耗时过程了。
+
+
+
+
+// 宿主应用图片（Images From Hybrid App’s Resources​）指的是 React Native 使用 Android/iOS 宿主应用的图片进行加载的方式。在 React Native 和 Android/iOS 混合应用中，也就是一部分是原生代码开发，一部分是 React Native 代码开发的情况下，你可能会用到这种加载方式。
+// 但在实际工作中，我不推荐你在 React Native 中使用宿主应用图片资源。
+
+// Base64 图片
+// Base64 指的是一种基于 64 个可见字符表示二进制数据的方式，Base64 图片指的是使用 Base64 编码加载图片的方法，它适用于那些图片体积小的场景。
+<Image
+  source={{
+    uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='
+  }}
+/>
+// 通常我们看的图片资源 .jpg、.png 都是二进制格式的，二进制格式的图片是以独立文件存在的。而 Base64 图片并不是单独图片文件，而是以文本形式存在 .js 文件中的。字符串是可以嵌套到 .js 文件中的，因此 Base64 图片也可以嵌入到 .js 文件中。在线上，Base64 图片是嵌套在 Bundle 文件中的，在加载 React Native 页面的同时，Base64 字符串也能很快地解析成真正的图片，并展示出来。
+// 由于 Base64 图片是嵌套在 Bundle 文件中的，所以 Base64 图片的优点是无需额外的网络请求展示快，缺点是它会增大 Bundle 的体积。 在动态更新的 React Native 应用中，Base64 图片展示快是以 React Native 页面整体加载慢为代价的。原因就是它会增加 Bundle 的体积，增加 Bundle 的下载耗时，从而导致 React Native 页面展示变慢。
+// Base64 图片只适合用在体积小的图片或关键的图片上。
+
+// 缓存更优方案：https://github.com/DylanVann/react-native-fast-image
