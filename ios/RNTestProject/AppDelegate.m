@@ -3,6 +3,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import "TestViewController.h"
 
 #ifdef FB_SONARKIT_ENABLED
 #import <FlipperKit/FlipperClient.h>
@@ -42,10 +43,21 @@ static void InitializeFlipper(UIApplication *application) {
       rootView.backgroundColor = [UIColor whiteColor];
   }
 
+  UIViewController *viewController1 = [UIViewController new];
+  viewController1.view = rootView;
+  viewController1.tabBarItem.title = @"首页";
+  
+  TestViewController *viewController2 = [[TestViewController alloc] init];
+  viewController2.view.backgroundColor = [UIColor whiteColor];
+  viewController2.tabBarItem.title = @"测试";
+  
+  UITabBarController *tabbarController = [[UITabBarController alloc] init];
+  NSArray *viewControllers = @[viewController1, viewController2];
+  tabbarController.viewControllers = viewControllers;
+  
+  UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tabbarController];
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-  UIViewController *rootViewController = [UIViewController new];
-  rootViewController.view = rootView;
-  self.window.rootViewController = rootViewController;
+  self.window.rootViewController = nav;
   [self.window makeKeyAndVisible];
   return YES;
 }

@@ -8,6 +8,7 @@
 
 import React from 'react';
 import type {Node} from 'react';
+import HelloWorldApp from './HelloWorld'; 
 import {
   SafeAreaView,
   ScrollView,
@@ -82,6 +83,9 @@ const App: () => Node = () => {
           </Section>
           <Section title="Learn More">
             Read the docs to discover what to do next:
+          </Section>
+          <Section>
+          <HelloWorldApp></HelloWorldApp>
           </Section>
           <LearnMoreLinks />
         </View>
