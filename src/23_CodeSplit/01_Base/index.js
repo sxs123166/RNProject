@@ -7,8 +7,6 @@
  */
 
 import React from 'react';
-import type {Node} from 'react';
-import HelloWorldApp from './components/HelloWorld'; 
 import {
   SafeAreaView,
   ScrollView,
@@ -27,7 +25,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const Section = ({children, title}): Node => {
+const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -53,7 +51,7 @@ const Section = ({children, title}): Node => {
   );
 };
 
-const App: () => Node = () => {
+const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -83,9 +81,6 @@ const App: () => Node = () => {
           </Section>
           <Section title="Learn More">
             Read the docs to discover what to do next:
-          </Section>
-          <Section>
-          <HelloWorldApp></HelloWorldApp>
           </Section>
           <LearnMoreLinks />
         </View>

@@ -42,13 +42,24 @@ static void InitializeFlipper(UIApplication *application) {
   } else {
       rootView.backgroundColor = [UIColor whiteColor];
   }
+  
+  // 学习视图
+  RCTRootView *rootView2 = [[RCTRootView alloc] initWithBridge:bridge
+                                                   moduleName:@"ProfileModule"
+                                            initialProperties:nil];
+  if (@available(iOS 13.0, *)) {
+      rootView2.backgroundColor = [UIColor systemBackgroundColor];
+  } else {
+      rootView2.backgroundColor = [UIColor whiteColor];
+  }
+  
 
   UIViewController *viewController1 = [UIViewController new];
-  viewController1.view = rootView;
+  viewController1.view = rootView2;
   viewController1.tabBarItem.title = @"首页";
   
   TestViewController *viewController2 = [[TestViewController alloc] init];
-  viewController2.view.backgroundColor = [UIColor whiteColor];
+  viewController2.view = rootView;
   viewController2.tabBarItem.title = @"测试";
   
   UITabBarController *tabbarController = [[UITabBarController alloc] init];

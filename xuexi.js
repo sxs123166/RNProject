@@ -79,6 +79,34 @@ const styles = StyleSheet.create({
   }
 });
 
+import React, {useState} from 'react';
+
+export default function ProductTable() {
+  const [products, setProducts] = useState([]);
+  const [requestStatus, setRequestStatus] = useState('IDLE');
+  // ...
+}
+
+export default function Count() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <View>
+      <Text>{count}</Text>
+      <Button title="+" onPress={() => setCount(count + 1)} />
+      <Button title="-" onPress={() => setCount(count - 1 >=0? count - 1: 0)} />
+    </View>
+)};
+
+const [countObject, setCountObject] = useState({num: 0});
+const [countArray, setCountArray] = useState([0]);
+
+
+setCountObject({...countObject, num: countObject.num+1});
+
+const newCountArray = [...newCountArray]
+newCountArray[0]++;
+setCountArray(newCountArray)
 
 // 更新状态
 // 推荐阅读
@@ -128,3 +156,4 @@ Image.prefetch(url);
 // Base64 图片只适合用在体积小的图片或关键的图片上。
 
 // 缓存更优方案：https://github.com/DylanVann/react-native-fast-image
+
